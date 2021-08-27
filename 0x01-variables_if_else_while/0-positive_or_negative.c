@@ -3,10 +3,10 @@
 #include <time.h>
 /**
 * main - entry point
-* Get random number, print it, if 
+* Get random number, print it, if
 * it is positive, negative or zero
 * Return: 0
-*/ 
+*/
 int main(void)
 {
 int n;
