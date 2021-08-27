@@ -3,7 +3,7 @@
 #include <time.h>
 /**
 *main - entry point
-*Print the alphabet in lowcase expect q and e
+*Print the alphabet in lowcase expect, q and e
 *Return: 0
 */
 int main(void)
