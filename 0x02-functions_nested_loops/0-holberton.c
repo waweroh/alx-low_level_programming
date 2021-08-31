@@ -12,7 +12,7 @@ int i;
 i = 0;
 while (name[i] != '\0')
 {
-     
+
 _putchar(name[i]);
 i++;
 
