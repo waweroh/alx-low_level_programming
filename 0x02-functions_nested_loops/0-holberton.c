@@ -4,7 +4,7 @@
  *write a program that prints holberton
  *return 0 on success
  */
-int main(void)
+int main(int)
 {
 char name[] = "_putchar";
 int i;
