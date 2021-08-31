@@ -2,7 +2,7 @@
 /**
  *main - entry point
  *write a program that prints holberton
- *return 0 on success
+ *return: 0 on success
  */
 int main(void)
 {
