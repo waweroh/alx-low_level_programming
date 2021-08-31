@@ -6,18 +6,18 @@
  */
 int main(void)
 {
-  char name[] = "_putchar";
-  int i;
+char name[] = "_putchar";
+int i;
 
-  i = 0;
-  while (name[i] != '\0')
-    {
+i = 0;
+while (name[i] != '\0')
+{
       
-      _putchar(name[i]);
-      i++;
+_putchar(name[i]);
+i++;
       
-    }
-  _putchar('\n');
-  return (0);
+}
+_putchar('\n');
+return (0);
 }    
   
