@@ -1,4 +1,5 @@
 #include "main.h"
+
 /**
  *swap_int - Swaps two integers
  *@a:First integer
@@ -7,7 +8,7 @@
  *Return: Void
  */
 
-void swap_int(int *a, int *b);
+void swap_int(int *a, int *b)
 {
 	int m, n;
 
