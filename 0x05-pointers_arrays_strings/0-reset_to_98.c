@@ -1,13 +1,11 @@
 #include "main.h"
 /**
- *main - entry point
+ *reset_to_98 - updates the value of the integer it points to 98
+ *@n: pointer to the digit to be set to 98
  *
- *Return - Always 0.
+ *Return - void
  */
-int main(void)
+void reset_to_98(int *n)
 {
-	int n = 402;
-	int *ptr = &n;
-	*ptr = 98;
-	_putchar("%d", *ptr);
+        *n = 98;
 }
