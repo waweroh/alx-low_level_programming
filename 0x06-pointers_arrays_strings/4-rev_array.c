@@ -1,6 +1,14 @@
 #include "main.h"
-e_array(int *a, int n)
-	~{
+
+/**
+ * reverse_array - function to reverse the contents of an array
+ * @a: array to be reversed
+ * @n: length of array a
+ *
+ * Return: void
+ */
+void reverse_array(int *a, int n)
+{
 	int i = 0, t;
 
 	n = n - 1;
