@@ -1,0 +1,1 @@
+The files in this project explores file descriptors and syscalls like write, read, open and close. All the function prototypes are stored into the main.h file.
