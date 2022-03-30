@@ -1,0 +1,1 @@
+Makefile - defines set of tasks to be executed.
