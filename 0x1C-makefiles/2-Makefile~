@@ -1,0 +1,9 @@
+all: school
+
+CC: gcc
+SRC: main school
+OBJ: main school
+NAME: school
+
+school:
+	$(CC) $(SRC) $(OBJ) $(NAME)
