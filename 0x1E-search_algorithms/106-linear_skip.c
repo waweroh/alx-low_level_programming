@@ -1,96 +1,72 @@
 #include "search_algos.h"
-
 /**
- * find_last_node - find last node
- * @node: search pointer
+ * skip_list_size - look for the size of a skiplist
  *
- * Return: pointer to final node
+ * @list: pointer to the head of the skiplist
+ *
+ * Return: size of the skiplist
  */
-skiplist_t *find_last_node(skiplist_t *probe)
+int skip_list_size(skiplist_t *list)
 {
-	if (probe->next == NULL)
-		return (probe);
-	else
-		return (find_last_node(probe->next));
-}
+	skiplist_t *temp = NULL;
+	int count = 0;
 
-/**
- * linear_skip_recurse - search normal list
- * @probe: search pointer
- * @stop: endpoint of subsearch; either express node or NULL
- * @value: search value
- *
- * Return: pointer to match; NULL if not found
- */
-skiplist_t *linear_skip_recurse(skiplist_t *probe, skiplist_t *stop, int value)
-{
-	if (probe == stop)
+	temp = list;
+
+	while (temp != NULL)
 	{
-		if (stop != NULL && stop->n == value)
-			return (stop);
-		else
-			return (NULL);
+		temp = temp->next;
+		count++;
 	}
-
-	printf("Value checked at index [%lu] = [%d]\n",
-probe->index, probe->n);
-
-	if (probe->n == value)
-		return (probe);
-	else
-		return (linear_skip_recurse(probe->next, stop, value));
+	return (count);
 }
-
 /**
- * linear_skip_express_recurse - search express list
- * @probe: search pointer
- * @value: search value
+ * linear_skip - searches for a value in a sorted skip
+ *               list of integers.
  *
- * Return: pointer to match or match range; NULL if not in range
- */
-skiplist_t *linear_skip_express_recurse(skiplist_t *probe, int value)
-{
-	skiplist_t *last = NULL;
-
-	if (probe->express == NULL)
-	{
-		last = find_last_node(probe);
-		printf("Value found between indexes [%lu] and [%lu]\n",
-probe->index, last->index);
-		return (probe);
-	}
-
-	printf("Value checked at index [%lu] = [%d]\n",
-probe->express->index, probe->express->n);
-
-	if (probe->express->n >= value)
-	{
-		printf("Value found between indexes [%lu] and [%lu]\n",
-probe->index, probe->express->index);
-		return (probe);
-	}
-	else
-		return (linear_skip_express_recurse(probe->express, value));
-}
-
-/**
- * linear_skip - perform search with skip list
- * @list: list to search
- * @value: search value
+ * @list: pointer to the head of the skip list to search in.
+ * @value: value to search for
  *
- * Return: matching node; NULL if not found
+ * Return: pointer on the first node where value is located
+ *         NULL otherwise.
  */
 skiplist_t *linear_skip(skiplist_t *list, int value)
 {
-	skiplist_t *zone = NULL;
+	skiplist_t *temp = NULL, *prev = NULL, *lastIndex = list;
+	int size = skip_list_size(list);
 
 	if (list == NULL)
 		return (NULL);
 
-	zone = linear_skip_express_recurse(list, value);
+	while (lastIndex->next != NULL)
+		lastIndex = lastIndex->next;
 
-	if (zone->n == value)
-		return (zone);
-	else
-		return (linear_skip_recurse(zone, zone->express, value));
+	temp = list->express;
+	prev = list;
+
+	while (temp->n < value && temp != NULL)
+	{
+		printf("Value checked at index [%ld] = [%d]\n", temp->index, temp->n);
+		prev = temp;
+		if (lastIndex->index < temp->index + sqrt(size))
+		{
+			temp = lastIndex;
+			break;
+		}
+		temp = temp->express;
+	}
+	if (temp->index != lastIndex->index)
+		printf("Value checked at index [%ld] = [%d]\n", temp->index, temp->n);
+	printf("Value found between indexes [%ld] and [%ld]\n",
+	prev->index, temp->index);
+
+	while (prev != temp && prev != NULL)
+	{
+		printf("Value checked at index [%ld] = [%d]\n", prev->index, prev->n);
+		if (prev->n == value)
+			return (prev);
+		prev = prev->next;
+	}
+	printf("Value checked at index [%ld] = [%d]\n", prev->index, prev->n);
+	return (NULL);
 }

@@ -1,58 +1,55 @@
 #include "search_algos.h"
-
 /**
- * recurse_advanced_binary - recursive implement of binary search
- * @array: array to search
- * @left: leftmost index
- * @right: rightmost index
- * @value: value to search
- * @match: pointer to index of most recent match
+ * advanced_binary_recursive - searches for a value in an array of
+ * integers using the binary search algorithm.
  *
- * Return: index of found value; or -1 if not found
+ * @array:  pointer to the first element of the array to search in
+ * @lo: lowest index of the array
+ * @hi: highest index of the array
+ * @value: value to search in the array
+ *
+ * Return: index of found value or -1
  */
-int recurse_advanced_binary(int *array, size_t left,
-size_t right, int value, ssize_t *match)
+int advanced_binary_recursive(int *array, size_t lo, size_t hi, int value)
 {
-	size_t i = left, mid;
+	int mid = (hi + lo) / 2;
+	size_t i = 0;
 
-	if (left > right)
-		return (*match);
-
-	printf("Searching in array: %d", array[i++]);
-	while (i <= right)
-		printf(", %d", array[i++]);
-	printf("\n");
-
-	mid = left + ((right - left) / 2);
-	if (array[mid] == value)
+	if (hi >= lo)
 	{
-		*match = mid;
-		if (right - left > 1)
-			mid++;
+		printf("Searching in array: ");
+		for (i = lo; i <= hi; i++)
+		{
+			if (i != hi)
+				printf("%d, ", array[i]);
+			else
+				printf("%d\n", array[i]);
+		}
+		if (value > array[mid - 1] && value == array[mid])
+			return (mid);
+		else if (value > array[mid])
+			return (advanced_binary_recursive(array, mid + 1, hi, value));
+		else
+			return (advanced_binary_recursive(array, lo, mid, value));
 	}
-	else if (array[mid] < value)
-		return (recurse_advanced_binary(array, mid + 1, right, value, match));
-
-	if (mid != 0)
-		return (recurse_advanced_binary(array, left, mid - 1, value, match));
-	else
-		return (*match);
+	return (-1);
 }
-
 /**
- * advanced_binary - search for value in array of sorted ints
- * @array: array to search
- * @size: size of array
- * @value: value to search
+ * advanced_binary - searches for a value in an array of
+ * integers using the binary search algorithm.
  *
- * Return: index of found value; or -1 if not found
+ * @array:  pointer to the first element of the array to search in
+ * @size: size of the array
+ * @value: value to search in the array
+ *
+ * Return: index of found value or -1
  */
 int advanced_binary(int *array, size_t size, int value)
 {
-	ssize_t match = -1;
+	int lo = 0, hi = size - 1;
 
 	if (array == NULL)
 		return (-1);
 
-	return (recurse_advanced_binary(array, 0, size - 1, value, &match));
+	return (advanced_binary_recursive(array, lo, hi, value));
 }
